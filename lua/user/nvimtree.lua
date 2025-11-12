@@ -4,10 +4,39 @@ local M = {
 }
 
 function M.config()
-  local wk = require "which-key"
-  wk.add {
-    { "<leader>e", "<cmd>NvimTreeToggle<CR>", desc = "Explorer" },
-  }
+local wk = require("which-key")
+  local api = require("nvim-tree.api")
+
+  wk.register({
+    ["<leader>e"] = {
+      function()
+        -- Get NvimTree windows in the current tab
+        local tree_wins = vim.fn.getwininfo()
+        local tree_winid
+        for _, win in ipairs(tree_wins) do
+          local bufname = vim.api.nvim_buf_get_name(win.bufnr)
+          if bufname:match("NvimTree_%d+") then
+            tree_winid = win.winid
+            break
+          end
+        end
+
+        local cur_win = vim.api.nvim_get_current_win()
+
+        if not tree_winid then
+          -- Tree is not open → open it
+          api.tree.open()
+        elseif tree_winid ~= cur_win then
+          -- Tree is open but not focused → focus it
+          api.tree.focus()
+        else
+          -- Tree is focused → close it
+          api.tree.close()
+        end
+      end,
+      "Explorer Toggle/Focus",
+    },
+  })
 
   local icons = require "user.icons"
 
