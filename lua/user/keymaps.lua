@@ -46,3 +46,9 @@ keymap("n", "<leader>w", ":lua vim.wo.wrap = not vim.wo.wrap<CR>", opts)
 vim.api.nvim_set_keymap("t", "<C-;>", "<C-\\><C-n>", opts)
 vim.api.nvim_set_keymap("t", "<Esc>", [[<C-\><C-n>]], { noremap = true, silent = true })
 
+-- -- Magma - juypter
+-- vim.keymap.set("n", "<leader>rr", function() vim.cmd("MagmaEvaluateOperator") end, { desc = "Magma: Run operator" })
+-- vim.keymap.set("n", "<leader>rl", function() vim.cmd("MagmaEvaluateLine") end, { desc = "Magma: Run line" })
+-- vim.keymap.set("n", "<leader>rc", function() vim.cmd("MagmaReevaluateCell") end, { desc = "Magma: Re-run cell" })
+-- vim.keymap.set("n", "<leader>ro", function() vim.cmd("MagmaShowOutput") end, { desc = "Magma: Show output" })
+-- keymap("n", "<leader>r", ":Magma/juypter", opts)
